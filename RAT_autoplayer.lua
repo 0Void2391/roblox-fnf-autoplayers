@@ -1,18 +1,5 @@
---variables
 
-_G.chances = {
-    {"Sweet", 90},
-    {"Fresh", 10},
-    {"Good", 0},
-    {"Bad", 0},
-    {"Yikes", 0}
-}
-_G.enabled = true
-local defaultscroll = "Downscroll"
-
-
-
---//code
+--made by 0_Void
 if not _G.Executed then--preventing multiple executions. could use getgenv but i'm not to reduce the custom functions used to ake sure everyone understands without having knowledge about custom functions
     _G.Executed =0
     else
