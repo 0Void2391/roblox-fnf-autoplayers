@@ -1,11 +1,9 @@
-
---made by 0_Void
-if not _G.Executed then--preventing multiple executions. could use getgenv but i'm not to reduce the custom functions used to ake sure everyone understands without having knowledge about custom functions
-    _G.Executed =0
+if not getgenv().Executed then--preventing multiple executions.
+    getgenv().Executed =0
     else
-    _G.Executed = 1
+    getgenv().Executed = 1
 end
-table.sort(_G.chances,function(a, b) return a[2] < b[2]end)
+table.sort(getgenv().chances,function(a, b) return a[2] < b[2]end)
 local function sendkey(key)
     keypress(key)
     keyrelease(key)
@@ -13,8 +11,8 @@ end
 
 local function random()
     local random = math.random(1, 100)
-    local max = math.max(_G.chances[1][2], _G.chances[2][2], _G.chances[3][2], _G.chances[4][2], _G.chances[5][2])
-    for i, v in pairs(_G.chances) do
+    local max = math.max(getgenv().chances[1][2], getgenv().chances[2][2], getgenv().chances[3][2], getgenv().chances[4][2], getgenv().chances[5][2])
+    for i, v in pairs(getgenv().chances) do
         local as
         if v[2] == max then
             as = i
@@ -64,12 +62,11 @@ local function lol(button, player, scroll, random)
         if not v:GetAttribute("Judgement") then
             v:SetAttribute("Judgement", _G.chances[random][1])
         end
-        print(v:GetAttribute("Judgement"))
         if not v:GetAttribute("Done") then
-            v:SetAttribute("Done", 0)
+            v:SetAttribute("Done", false)
         end
         if
-            v ~= nil and v.Position ~= nil and v.Name == "ImageLabel" and v:GetAttribute("Done") == 0 and v:GetAttribute("Judgement")
+            v ~= nil and v.Position ~= nil and v.Name == "ImageLabel" and v:GetAttribute("Done") == false and v:GetAttribute("Judgement")
          then
             value1, value2 = scrollhandle(scroll, v:GetAttribute("Judgement"))
             if v.Position.Y.Scale >= value1 and v.Position.Y.Scale <= value2 then
@@ -86,10 +83,10 @@ local function lol(button, player, scroll, random)
                     until var == false
                     task.wait(0.005)
                     keyrelease(press)
-                    v:SetAttribute("Done", 1)
+                    v:SetAttribute("Done", true)
                 else
                     sendkey(press)
-                    v:SetAttribute("Done", 1)
+                    v:SetAttribute("Done", true)
                 end
             end
         end
@@ -144,5 +141,4 @@ while _G.enabled do
         coroutine.wrap(lol)("Left", side, scroll, random())
         coroutine.wrap(lol)("Up", side, scroll, random())
     end
-end --todo: add customizable keybinds, and add support for kill notes at least for arrows.
-
+end
