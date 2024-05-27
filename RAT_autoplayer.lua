@@ -1,4 +1,4 @@
-if not getgenv().Executed then--preventing multiple executions.
+if not getgenv().Executed then--preventing multiple executions. could use getgenv but i'm not to reduce the custom functions used to ake sure everyone understands without having knowledge about custom functions
     getgenv().Executed =0
     else
     getgenv().Executed = 1
@@ -60,7 +60,7 @@ local function lol(button, player, scroll, random)
     for i, v in pairs(game.Players.LocalPlayer.PlayerGui:WaitForChild("GameHUD").Frame[player][button]:GetChildren()) do
         task.wait()
         if not v:GetAttribute("Judgement") then
-            v:SetAttribute("Judgement", _G.chances[random][1])
+            v:SetAttribute("Judgement", getgenv().chances[random][1])
         end
         if not v:GetAttribute("Done") then
             v:SetAttribute("Done", false)
@@ -122,8 +122,8 @@ end
 
 --//loop
 
-while _G.enabled do
-    if _G.executed == 1 then print("already executed") break end
+while getgenv().enabled do
+    if getgenv().executed == 1 then print("already executed") break end
     task.wait()
     if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Settings") then
         scroll = getscroll()
