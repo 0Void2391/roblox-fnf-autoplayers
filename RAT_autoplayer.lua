@@ -129,7 +129,7 @@ while _G.enabled do
         scroll = getscroll()
      --to automatically get the scroll open settings on execution or change the value below after the else
     elseif scroll == nil then
-        scroll = defaultscroll
+        scroll = getgenv().defaultscroll
     end
     if isingame() then
         local side
