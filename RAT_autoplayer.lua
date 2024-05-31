@@ -1,5 +1,5 @@
-if not getgenv().Executed then--preventing multiple executions. could use getgenv but i'm not to reduce the custom functions used to ake sure everyone understands without having knowledge about custom functions
-    getgenv().Executed =0
+if not getgenv().Executed then--preventing multiple executions.
+    getgenv().Executed = 0
     else
     getgenv().Executed = 1
 end
@@ -28,30 +28,30 @@ end
 local function lol(button, player, scroll, random)
     local press
     if button == "Left" then
-        press = "A"
+        press = 0x41
     elseif button == "Right" then
-        press = "D"
+        press = 0x44
     elseif button == "Up" then
-        press = "W"
+        press = 0x57
     elseif button == "Down" then
-        press = "S"
+        press = 0x53
     end
 
     local offsets = {
-        {"Sweet", 0.1, -3},
-        {"Fresh", 0.5, -3},
-        {"Good", 0.8, -3},
-        {"Bad", 1, -3},
-        {"Yikes", 2, -3}
+        {"Sweet", 0.1, -3, 0.3},
+        {"Fresh", 0.5, -3,0.6},
+        {"Good", 1, -3,0.9},
+        {"Bad", 1.7, -3,1.3},
+        {"Yikes", 2.4, -3,1.3}--anything higher than a good lift can be treated as an early lift so to ensure this doesn't happen the limit is set to good lift
     }
 
     local function scrollhandle(scroll, judgement)
         for i, v in pairs(offsets) do
             if v[1] == judgement then
                 if scroll == "Upscroll" then
-                    return v[3], v[2]
+                    return v[3], v[2], v[4]
                 elseif scroll == "Downscroll" then
-                    return -v[2], -v[3]
+                    return -v[2], -v[3], v[4]
                 end
             end
         end
@@ -68,20 +68,20 @@ local function lol(button, player, scroll, random)
         if
             v ~= nil and v.Position ~= nil and v.Name == "ImageLabel" and v:GetAttribute("Done") == false and v:GetAttribute("Judgement")
          then
-            value1, value2 = scrollhandle(scroll, v:GetAttribute("Judgement"))
+            value1, value2, value3 = scrollhandle(scroll, v:GetAttribute("Judgement"))
             if v.Position.Y.Scale >= value1 and v.Position.Y.Scale <= value2 then
                 if v:FindFirstChild("Tail") then
                     local var = true
                     keypress(press)
                     repeat
                         task.wait()
-                        if v:FindFirstChild("Tail") and v.Tail.Size.Y.Scale <= 0.3 then
+                        if v:FindFirstChild("Tail") and v.Tail.Size.Y.Scale <= value3 then
                             var = false
                         elseif not v:FindFirstChild("Tail") then
                             var = false
                         end
                     until var == false
-                    task.wait(0.005)
+                    task.wait(0.01)
                     keyrelease(press)
                     v:SetAttribute("Done", true)
                 else
